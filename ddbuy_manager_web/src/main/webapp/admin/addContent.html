@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- 导入文件 -->
+    <link rel="stylesheet" type="text/css"
+          href="easyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="easyUI/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="easyUI/css/demo.css">
+    <!-- 第一步，导入 js-->
+    <script src="js/jquery-1.8.3.js"></script>
+    <!-- 第二步，导入 easyui-->
+    <script src="js/jquery.easyui.min.js" ></script>
+    <script type="text/javascript">
+        //代码
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+</head>
+<body>
+<p>添加广告:
+</p>
+<form action="" method="post" enctype="multipart/form-data" name="form1"
+      id="form1">
+    <p>广告类型:
+        <!--<select name="select" id="select">
+        </select>-->
+        <input id="categoryId" name="categoryId" value="aa">
+    </p>
+    <p>标题:
+        <input type="text" name="title" />
+    </p>
+    <p>url:
+        <input type="text" name="url" />
+    </p>
+    <p>图片:
+        <input type="file" name="file" />
+    </p>
+    <p>状态:
+        <input type="radio" name="status" id="radio" value="1" />
+        启用
+        <input type="radio" name="status" id="radio2" value="0" />
+        禁用 </p>
+    <p>排序:
+        <input type="text" name="sortOrder" />
+    </p>
+    <p>
+        <input type="button" name="button" id="button" value=" 添加" />
+    </p>
+</form>
+<p>&nbsp;</p>
+</body>
+<script type="text/javascript">
+    $(function () { // 网页加载后就发生
+// 发异步请求获取控制器数据，加载下拉列表
+        $('#categoryId').combobox({
+            url:'/getAllTbContentCategory',
+            valueField:'id', // 值
+            textField:'name' // 文本
+        });
+    });
+
+    //添加按钮事件
+    $("#button").click(function () {
+        //获取表单对象执行提交
+        $("#form1").form("submit",{
+            url:"/addContent",
+            type:"post",
+            success:function (data) {
+                alert(data.result);
+               // var data2=$.parseJSON(data);
+                if (data.result==1){
+                    $.messager.alert("提示信息","添加成功")
+                } else {
+                    $.messager.alert("提示信息","添加失败")
+                }
+            }
+        });
+    });
+</script>
+</html>
